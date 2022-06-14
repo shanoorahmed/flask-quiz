@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}LEADERBOARD{% endblock %}
+{% block content %}
+
+<h1 class="mb-5" style="text-align: center">Leaderboard</h1>
+
+<div class="jumbotron bg-transparent mb-0 radius-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr class="bg-dark">
+              <th>#</th>
+              <th>Username</th>
+              <th>Score</th>
+              <th>Last Answered</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(0,size) %}
+            <tr>
+              <th scope="row">{{ i+1 }}</th>
+              <td>{{ user[i].username }}</td>
+              <td>{{ user[i].score }}</td>
+              <td>{{ user[i].last_answered.hour }}:{{ user[i].last_answered.minute }}:{{ user[i].last_answered.second }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div style="text-align: center">&copy; Developed by EEC (Version'21)</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% block title %}QUESTION BID{% endblock %}
+{% block content %}
+
+<div class="timer">
+    <span id="hours"></span>
+    <div class="divider">
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <span id="minutes"></span>
+    <div class="divider">
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <span id="seconds"></span>
+</div>
+<div class="container py-4">
+    <div class="col-md-12" style="text-align: center; padding: 0;">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            {% if current_user.question_no<=10 %}
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#&nbsp;&nbsp;</th>
+                    <th scope="col">Topic</th>
+                    <th scope="col">Bid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(0,10) %}
+                    <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        {% for question in questions %}
+                            {% if question.question_number == easyList[i] %}
+                                <td>{{ question.question_topic }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            {% if current_user.question_no == i+1 %}
+                            <div class="bidButtons" style="display: inline; justify-content: center; align-items: center;">
+                                {% if current_user.attempt_no == 1 and current_user.bid_value == 0 %}
+                                <button type="button" style="margin-right: 5%;" data-bs-toggle="modal"  data-bs-target="#bidModal" class="btn btn-shadow btn-outline-success">BID</button>
+                                <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Minimum Bid: 5</h5>
+                                            <h5>Maximum Bid: 25</h5>
+                                            <input type="hidden" name="shuffled_question_no" value="{{ easyList[i] }}">
+                                            <input type="number" class="form-control" name="bid" placeholder="Enter your bid" aria-label="Enter Flag" aria-describedby="basic-addon2" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="bid_entered" class="btn btn-primary">Go To Question</button>
+                                        </form>
+                                    </div>                                       
+                                    </div>
+                                </div>
+                                </div>
+                                <button type="button" style="margin-left: 5%;" data-bs-toggle="modal" data-bs-target="#skipModal" class="qp btn btn-shadow btn-outline-danger">SKIP</button>
+                                <div class="modal fade" id="skipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Are you sure you want to skip this question?</h5>
+                                            <h5>No points will be deducted, but you cannot visit this question later.</h5>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="skip_bid" class="btn btn-primary">Skip</button>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                {% else %}
+                                <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                    <input type="hidden" name="shuffled_question_no" value="{{ easyList[i] }}">
+                                    <button type="submit" name="submit_button" value="go_back_to_question" class="btn btn-shadow btn-outline-success">QUESTION</button>
+                                </form>
+                                {% endif %}
+                            </div>  
+                            {% endif %}  
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% elif current_user.question_no>=11 and current_user.question_no<=16 %}
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#&nbsp;&nbsp;</th>
+                    <th scope="col">Topic</th>
+                    <th scope="col">Bid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(10,16) %}
+                    <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        {% for question in questions %}
+                            {% if question.question_number == midList[i-10] %}
+                                <td>{{ question.question_topic }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            {% if current_user.question_no == i+1 %}
+                            <div class="bidButtons" style="display: inline; justify-content: center; align-items: center;">
+                                {% if current_user.attempt_no == 1 and current_user.bid_value == 0 %}
+                                <button type="button" style="margin-right: 5%;" data-bs-toggle="modal"  data-bs-target="#bidModal" class="btn btn-shadow btn-outline-success">BID</button>
+                                <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Minimum Bid: 20</h5>
+                                            <h5>Maximum Bid: 50</h5>
+                                            <input type="hidden" name="shuffled_question_no" value="{{ midList[i-10] }}">
+                                            <input type="number" class="form-control" name="bid" placeholder="Enter your bid" aria-label="Enter Flag" aria-describedby="basic-addon2" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="bid_entered" class="btn btn-primary">Go To Question</button>
+                                        </form>
+                                    </div>                                       
+                                    </div>
+                                </div>
+                                </div>
+                                <button type="button" style="margin-left: 5%;" data-bs-toggle="modal" data-bs-target="#skipModal" class="btn btn-shadow btn-outline-danger">SKIP</button>
+                                <div class="modal fade" id="skipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Are you sure you want to skip this question?</h5>
+                                            <h5>No points will be deducted, but you cannot visit this question later.</h5>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="skip_bid" class="btn btn-primary">Skip</button>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                {% else %}
+                                <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                    <input type="hidden" name="shuffled_question_no" value="{{ midList[i-10] }}">
+                                    <button type="submit" name="submit_button" value="go_back_to_question" class="btn btn-shadow btn-outline-success">QUESTION</button>
+                                </form>
+                                {% endif %}
+                            </div>  
+                            {% endif %}  
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table table-dark table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#&nbsp;&nbsp;</th>
+                    <th scope="col">Topic</th>
+                    <th scope="col">Bid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(16,20) %}
+                    <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        {% for question in questions %}
+                            {% if question.question_number == hardList[i-16] %}
+                                <td>{{ question.question_topic }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            {% if current_user.question_no == i+1 %}
+                            <div class="bidButtons" style="display: inline; justify-content: center; align-items: center;">
+                                {% if current_user.attempt_no == 1 and current_user.bid_value == 0 %}
+                                <button type="button" style="margin-right: 5%;" data-bs-toggle="modal"  data-bs-target="#bidModal" class="btn btn-shadow btn-outline-success">BID</button>
+                                <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Minimum Bid: 40</h5>
+                                            <h5>Maximum Bid: 100</h5>
+                                            <input type="hidden" name="shuffled_question_no" value="{{ hardList[i-16] }}">
+                                            <input type="number" class="form-control" name="bid" placeholder="Enter your bid" aria-label="Enter Flag" aria-describedby="basic-addon2" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="bid_entered" class="btn btn-primary">Go To Question</button>
+                                        </form>
+                                    </div>                                       
+                                    </div>
+                                </div>
+                                </div>
+                                <button type="button" style="margin-left: 5%;" data-bs-toggle="modal" data-bs-target="#skipModal" class="btn btn-shadow btn-outline-danger">SKIP</button>
+                                <div class="modal fade" id="skipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                        <div class="mb-3">
+                                            <h5>Are you sure you want to skip this question?</h5>
+                                            <h5>No points will be deducted, but you cannot visit this question later.</h5>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit_button" value="skip_bid" class="btn btn-primary">Skip</button>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                {% else %}
+                                <form class="needs-validation" method="POST" action="{{ url_for('question.questionBid') }}">
+                                    <input type="hidden" name="shuffled_question_no" value="{{ hardList[i-16] }}">
+                                    <button type="submit" name="submit_button" value="go_back_to_question" class="btn btn-shadow btn-outline-success">QUESTION</button>
+                                </form>
+                                {% endif %}
+                            </div>  
+                            {% endif %}  
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div style="text-align: center">&copy; Developed by EEC (Version'21)</div>
+</div>
+    
+{% endblock %}

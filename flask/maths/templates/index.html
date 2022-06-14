@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}HOME{% endblock %}
+{% block content %}
+
+<div class="jumbotron bg-transparent mb-0 radius-0">
+  <div style="float: right; margin-top: -5%; margin-right: 3%;"><img src="../static/img/nit.png" style="width: 110%; height: auto;"></div>
+  <div class="container" style="margin-top: 20px;">
+      <div class="row">
+        <div class="col-xl-6">
+          <h1 class="display-1" style="font-size: 60px">Math πrate</h1><br>
+          <div class="lead mb-3 text-mono text-grey">
+            <p>Welcome Philomath! Excited for a two day long Maths Race! Are you ready to solve mind-boggling Mathematics Problems?</p> 
+          </div>
+          <div class="text-mono">
+            {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('auth.login') }}"
+              class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left">
+              Login
+            </a>
+            <a href="{{ url_for('auth.register') }}"
+              class="btn btn-danger btn-shadow px-3 my-2 ml-0 ml-sm-1 text-left">
+              Register
+            </a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+              {% if current_user.question_no < 21 %}
+              <a href="{{ url_for('question.questionBid') }}"
+                class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left">
+                Start
+              </a>
+              {% else %}
+              <a href="{{ url_for('main.thankyou') }}"
+                class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left">
+                Start
+              </a>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="footer" style="margin-top:15%; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+        <div style="display: flex; justify-content: center;"><img src="../static/img/version21.jpg" style="width: 85%; height: auto;"></div> 
+        <div style="text-align: center; margin-top: 1%;">&copy; Developed by EEC (Version'21)</div>
+      </div>
+  </div>
+</div>
+    
+{% endblock %}

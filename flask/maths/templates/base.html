@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/flipclock.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap4-neon-glow.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/particles.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/flipclock.min.js' )}}"></script>
+
+  <title>{% block title %}{% endblock %}</title>
+
+</head>
+
+<body>
+  <div id="particles-js"></div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <button class="navbar-toggler ml-auto custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="color:white !important;" ></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText" style="font-size: 20px;margin-top: 20px;">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="p-3 text-decoration-none text-light active" href="{{ url_for('main.index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="p-3 text-decoration-none text-light active" href="{{ url_for('main.instructions') }}">Instructions</a>
+          </li>
+          {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="p-3 text-decoration-none text-light active" href="{{ url_for('main.leaderboard') }}">Leaderboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="p-3 text-decoration-none text-light active" href="{{ url_for('auth.logout') }}">Logout</a>
+          </li>
+        </ul>
+      </div>
+      <span class="navbar-text" id = "score" style="font-family:Montserrat; color:rgb(94, 228, 112) !important; float: right;">
+          Welcome {{ current_user.username }}! <br>
+          Score: {{ current_user.score}} 
+      </span>
+      {% endif %}
+    </div>
+  </nav>
+     
+  <div class="container">
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="text-align: center">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>       
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+  </div>
+
+  {% block content %}{% endblock %}
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  
+</body>
+
+</html>

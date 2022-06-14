@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}ADD QUESTIONS{% endblock %}
+{% block content %}
+<div class="container py-5 mb-5">
+    <h1 class="mb-5" style="text-align: center">ADD QUESTIONS</h1>
+    <div class="row py-4">
+      <div class="col-md-8 order-md-2">
+        <form class="needs-validation" method="POST" action="{{ url_for('question.addquestion') }}">
+            <div class="mb-3">
+                <label for="questionNumber" class="form-label">Question Number</label>
+                <input class="form-control" name="questionnumber" id="questionNumber" placeholder="" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="topic" class="form-label">Topic</label>
+                <input class="form-control" name="topic" id="topic" placeholder="" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input class="form-control" name="image" id="image" placeholder="" required>
+            </div>
+  
+            <div class="mb-3">
+                <label for="question" class="form-label">Question</label>
+                <textarea class="form-control" name="question" id="question" rows="10" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="answer" class="form-label">Answer</label>
+                <input class="form-control" name="answer" id="answer" placeholder="" required>
+            </div>
+
+            <button class="btn btn-outline-success btn-shadow btn-lg btn-block" type="submit"> Add Question </button>
+        </form>
+      </div>
+      <div class="col-md-2 order-md-1"></div>
+      <div class="col-md-2 order-md-3"></div>
+    </div>
+</div>   
+{% endblock %}

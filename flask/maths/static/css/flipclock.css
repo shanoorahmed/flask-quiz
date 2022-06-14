@@ -1,0 +1,59 @@
+.timer {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 4.5%;
+}
+
+.timer span {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 30px;
+  color: #f5f5f5;
+  margin: 0 5px;
+  border: 2px solid gray;
+}
+
+.divider {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 700px) {
+  .timer {
+    padding-right: 5%;
+  }
+
+  .timer span {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    margin: 0 4px;
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+  }
+}

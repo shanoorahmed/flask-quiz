@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}QUESTIONS{% endblock %}
+{% block content %}
+
+<div class="timer">
+  <span id="hours"></span>
+  <div class="divider">
+      <div class="dot"></div>
+      <div class="dot"></div>
+  </div>
+  <span id="minutes"></span>
+  <div class="divider">
+      <div class="dot"></div>
+      <div class="dot"></div>
+  </div>
+  <span id="seconds"></span>
+</div>
+<div class="container py-4">
+  <div class="col-md-12" style="padding: 0;">
+    <div class="h-100 p-5 text-white bg-dark rounded-3">
+      <form class="needs-validation" method="POST" action="{{ url_for('question.questions') }}">
+        <div class="container">
+          {% for question in questions %}
+            {% if question.question_number == shuffled_qno %}
+            <div class="heading">
+              <h3>Attempt left : {{4-current_user.attempt_no}}</h3>
+            </div>
+            <br>
+            <h4>Q) {{ question.question }}</h4>
+            <br>
+            {% if question.question_img!=0 %}
+            <img id="myImg" src="../static/img/Questions/{{ question.question_img }}.png" alt="Question" style="width:100%;max-width:300px">
+            <div id="myModal" class="modal1">
+              <span class="close">&times;</span>
+              <img class="modal-content" id="img01">
+              <div id="caption"></div>
+            </div>
+            <br>
+            {% endif %}
+            {% endif %}
+          {% endfor %}
+          <br>       
+          <div class="row">
+            <div class="col-lg-8 col-md-6 col-sm-12 col-12">
+              <input type="hidden" name="shuffled_question_no" value="{{ shuffled_qno }}">
+              <input type="text" class="form-control" name="answer" placeholder="Enter answer" aria-label="Enter Flag" aria-describedby="basic-addon2" style="height: 45px">
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+              <button type="submit" id="ans" name="submit_button" value="answer_this_question" class="qp btn btn-shadow btn-outline-success" data-toggle="modal" style="width:100%">SUBMIT</button>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+              <button type="submit" id="skip" name="submit_button" value="skip_this_question" class="qp btn btn-shadow btn-outline-danger" data-toggle="modal" style="width:100%">SKIP</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div style="text-align: center; margin-top: 10%;">&copy; Developed by EEC (Version'21)</div>
+</div>
+
+{% endblock %}

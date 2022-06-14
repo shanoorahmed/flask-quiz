@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}INTERNAL SERVER ERROR{% endblock %}
+{% block content %}
+<div class="jumbotron bg-transparent mb-0 radius-0">
+  <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="mb-4" style="text-align: center">INTERNAL SERVER ERROR</h1>
+          <h2 style="text-align: center; width: 100%"> Philomaths are Wanderers and Explorers </h2>
+          <h2 style="text-align: center; width: 100%"> But sometimes they get lost too... </h2>
+          <div class="text-mono">
+            <a href="{{ url_for('main.index') }}"
+              class="mt-5 btn btn-shadow btn-success btn-block">
+              Go Back
+            </a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="footer">
+  <div style="text-align: center; margin-top: 15%;">&copy; Developed by EEC (Version'21)</div>
+</div>
+{% endblock %}

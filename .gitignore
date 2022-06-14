@@ -1,0 +1,4 @@
+__pycache__
+venv/
+maths.db
+.DS_Store
